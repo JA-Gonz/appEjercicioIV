@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Evaluacion de empresas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--Cargamos la librería uikit-->
+    <link rel="stylesheet" type="text/css" href="static/css/uikit.css"/>
+    <!--Cargamos la librería JQuery-->
+    <script src="static/jquery.js"></script>
+    <!--Cargamos la librería JavaScript de uikit-->
+    <script src="static/js/uikit.min.js"></script>
+  </head>
+
+  <body>
+	
+	<div class="uk-grid">
+		<div class="uk-width-5-100">
+			
+
+			<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>
+
+			<a class="uk-button-success"  href="">Salir</a>
+
+			<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>
+
+			<a class="uk-button-success"  href="">Salir</a>
+		</div>
+	</div>
+  </body>
+</html>

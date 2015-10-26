@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Evaluacion de empresas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--Cargamos la librería uikit-->
+    <link rel="stylesheet" type="text/css" href="static/css/uikit.css"/>
+    <!--Cargamos la librería JQuery-->
+    <script src="static/jquery.js"></script>
+    <!--Cargamos la librería JavaScript de uikit-->
+    <script src="static/js/uikit.min.js"></script>
+  </head>
+
+  <body>
+
+	<div class="uk-grid">
+		<div class="uk-width-5-100">
+
+		<form id="formCrearUsuario" name="formCrearUsuario" method="post" class="uk-panel uk-panel-box uk-form">
+                   <div class="uk-text-small"> <!-- Para que el texto sea pequeño -->
+                      <!--Campo de nombre-->
+                      <input name="nombreUsuario" type="text" placeholder="Nombre Usuario">
+                     <!--Campo de la ciuda-->
+                     <input name="ciudadUsuario" type="text" placeholder="Ciudad">
+                     <br>
+                      <input type="submit" class="uk-button uk-button-primary uk-margin-top" value="Crear Usuario" name="botonCrearUsuario">
+                   </div>
+      		</form>
+		</div>
+	</div>
+  </body>
+</html>
