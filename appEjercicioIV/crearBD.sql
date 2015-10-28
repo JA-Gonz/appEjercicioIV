@@ -5,6 +5,7 @@
   Ejecutado en el mismo directorio que este fichero.
 
 **/
+create database CALIFICACIONES_DB;
 use CALIFICACIONES_DB;
 
 CREATE TABLE EMPRESAS (
