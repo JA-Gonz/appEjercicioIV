@@ -1,4 +1,4 @@
-https://travis-ci.org/JA-Gonz/appEjercicioIV.svg
+![si_funciona](https://travis-ci.org/JA-Gonz/appEjercicioIV.svg)
 
 # appEjercicioIV
 
