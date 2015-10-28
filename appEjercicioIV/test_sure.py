@@ -1,6 +1,7 @@
 import webapp2
 import __main__
 import sure
+import pasarelatest
 #import unittest
 
 class TestStringMethods():
@@ -9,7 +10,7 @@ class TestStringMethods():
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/listarempresas')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -21,7 +22,7 @@ class TestStringMethods():
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/calificarempresa')
             # Get a response for that request.
-            response = request.get_response(main.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -32,7 +33,7 @@ class TestStringMethods():
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/crearempresa')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -43,7 +44,7 @@ class TestStringMethods():
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/crearusuario')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -54,7 +55,7 @@ class TestStringMethods():
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)

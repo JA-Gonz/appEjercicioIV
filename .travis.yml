@@ -4,4 +4,4 @@ python:
 sudo: required
 install: "sudo apt-get update && mysql -u root < appEjercicioIV/crearBD.sql && pip install -r requirements.txt"
 #Script de testeo
-script: cd appejercicioIV && nosetests test_sure.py
+script: cd appEjercicioIV && nosetests test_sure.py
