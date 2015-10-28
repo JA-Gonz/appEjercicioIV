@@ -15,7 +15,7 @@ class TestStringMethods():
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
             #self.assertTrue('<td>' in response.body)
-            (response.body).should.contain('<td>')
+            (response.body).should.contain('<table border=')
 
         def test_calificarempresa(self):
             # Build a request object passing the URI path to be tested.
@@ -27,7 +27,7 @@ class TestStringMethods():
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
             #self.assertTrue('<td>' in response.body)
-            (response.body).should.contain('<td>')
+            (response.body).should.contain('<table border=')
         def test_crearempresa(self):
             # Build a request object passing the URI path to be tested.
             # You can also pass headers, query arguments etc.
