@@ -1,0 +1,7 @@
+language python
+python:
+ - "2.7"
+sudo: requiered
+install: "sudo apt-get update && mysql -u root < appejercicioIV/crearBD.sql && pip install -r requirements.txt"
+#Script de testeo
+script: cd appejercicioIV && nosetests test_sure.py
