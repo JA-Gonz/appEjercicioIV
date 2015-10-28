@@ -1,6 +1,6 @@
 import unittest
 import webapp2
-import __main__
+import pasarelatest
 
 class TestStringMethods(unittest.TestCase):
         def test_listarempresas(self):
@@ -8,7 +8,7 @@ class TestStringMethods(unittest.TestCase):
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/listarempresas')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -19,18 +19,18 @@ class TestStringMethods(unittest.TestCase):
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/calificarempresa')
             # Get a response for that request.
-            response = request.get_response(main.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
-            self.assertTrue('<td>' in response.body)
+            self.assertTrue('</option>' in response.body)
 
         def test_crearempresa(self):
             # Build a request object passing the URI path to be tested.
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/crearempresa')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -41,7 +41,7 @@ class TestStringMethods(unittest.TestCase):
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/crearusuario')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
@@ -52,7 +52,7 @@ class TestStringMethods(unittest.TestCase):
             # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/')
             # Get a response for that request.
-            response = request.get_response(__main__.aplicacion)
+            response = request.get_response(pasarelatest.aplicacion())
 
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)

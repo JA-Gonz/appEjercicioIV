@@ -5,7 +5,7 @@ class GestorEmpresas:
 #PRogramar funcion para añadir empresa
     @classmethod
     def registrarEmpresa(self, nombre, ciudad):
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB"); #La conexión está clara.
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB"); #La conexión está clara.
         consulta="INSERT INTO EMPRESAS (Nombre, Ciudad) values("+"'"+nombre+"', "+"'"+ciudad+"');"
         cursor = base_datos.cursor()
         cursor.execute(consulta);
@@ -17,7 +17,7 @@ class GestorEmpresas:
 
     @classmethod
     def listarEmpresasCalificaciones(self):
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB"); #La conexión está clara.
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB"); #La conexión está clara.
         consulta = "SELECT Nombre,Ciudad from EMPRESAS;"
         cursor = base_datos.cursor()
         cursor.execute(consulta)
@@ -36,7 +36,7 @@ class GestorEmpresas:
 #Funcion que obtiene solo el nombre
     @classmethod
     def obtenerEmpresas(self):
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB");
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB");
         consulta = "SELECT Nombre, Codigo_empresa from EMPRESAS;"
         cursor = base_datos.cursor()
         cursor.execute(consulta)
@@ -51,7 +51,7 @@ class GestorEmpresas:
     @classmethod
     def calificarEmpresa(self, codigo_usuario, codigo_empresa, nota):
         #Abrimos conexion
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB");
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB");
         #Buscamos el ID de la empresa
         consulta = "INSERT INTO CALIFICA(codigo_usuario, codigo_empresa, Nota) VALUES (" + codigo_usuario + "," + codigo_empresa + "," + nota + ");"
         cursor = base_datos.cursor()

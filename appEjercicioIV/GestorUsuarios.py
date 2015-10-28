@@ -6,7 +6,7 @@ class GestorUsuarios:
     # Metodo para registrar usuario
     @classmethod
     def registrarUsuario(self, nombre, ciudad):
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB"); #La conexión está clara.
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB"); #La conexión está clara.
         consulta="INSERT INTO USUARIOS (Nombre, Ciudad) values("+"'"+nombre+"', "+"'"+ciudad+"');"
         cursor = base_datos.cursor()
         cursor.execute(consulta);
@@ -17,7 +17,7 @@ class GestorUsuarios:
     # Método para listar todos los usuarios
     @classmethod
     def obtenerUsuarios(self):
-        base_datos = MySQLdb.connect(host="localhost", user="root", passwd="root", db="CALIFICACIONES_DB");
+        base_datos = MySQLdb.connect(host="localhost", user="root", db="CALIFICACIONES_DB");
         consulta = "SELECT Codigo_usuario, NOMBRE from USUARIOS;"
         cursor = base_datos.cursor()
         cursor.execute(consulta)

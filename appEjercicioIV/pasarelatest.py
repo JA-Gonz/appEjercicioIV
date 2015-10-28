@@ -139,23 +139,11 @@ class PaginaBorrarCalificacion(webapp2.RequestHandler):
 
 # Ranking de empresa. Las empresas serán ordenadas de mayor a menor, haciendo una media de todas sus calificaciones.
 
-
-
-
-aplicacion = webapp2.WSGIApplication([
+def aplicacion():
+    return  webapp2.WSGIApplication([
                                       ('/',PaginaPrincipal),
                                       ('/crearempresa',PaginaCrearEmpresa),
                                       ('/listarempresas', PaginaListarCalificaciones),
                                       ('/calificarempresa', PaginaCalificarEmpresa),
                                       ('/crearusuario',PaginaCrearUsuario)
 					], debug=True)
-
-
-
-
-def main():
-    from paste import httpserver
-    httpserver.serve(aplicacion, host='127.0.0.1', port='8080')
-
-if __name__ == '__main__':
-    main()
