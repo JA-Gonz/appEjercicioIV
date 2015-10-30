@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>pasarelatest.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id="background"></div>
+<div id='container'>
+  <div class='section'>
+    <div class='docs'><h1>pasarelatest.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">jinja2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">webapp2</span>
+<span class="kn">import</span> <span class="nn">cgi</span>
+<span class="kn">from</span> <span class="nn">GestorEmpresas</span> <span class="kn">import</span> <span class="n">GestorEmpresas</span>
+<span class="kn">from</span> <span class="nn">GestorUsuarios</span> <span class="kn">import</span> <span class="n">GestorUsuarios</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">plantilla_env</span> <span class="o">=</span> <span class="n">jinja2</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span>
+    <span class="n">loader</span><span class="o">=</span><span class="n">jinja2</span><span class="o">.</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>Ventana principal: tendrá 4 botones para acceder a las distintas opciones</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaPrincipal</span> <span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/paginaprincipal.html&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Pagina de Crear empresa. Tendrá un campo de texto para el nombre de la empresa y un botón de enviar. La empresa quedará grabada.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaCrearEmpresa</span> <span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/crearempresa.html&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreEmpresa&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;ciudadEmpresa&#39;</span><span class="p">)):</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/crearempresa.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Grabamos los datos en la base de datos.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">registrarEmpresa</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreEmpresa&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;ciudadEmpresa&#39;</span><span class="p">))</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/paginaprincipal.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Listar calificaciones. Listará el nombre de empresas y las calificaciones que ha tenido.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaListarCalificaciones</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">listarEmpresasCalificaciones</span><span class="p">()</span>
+            <span class="n">templateVars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;empresas&quot;</span> <span class="p">:</span> <span class="n">respuesta</span><span class="p">}</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/listarempresas.html&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">templateVars</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Crear un usuario</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaCrearUsuario</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/crearusuario.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+            <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreUsuario&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;ciudadUsuario&#39;</span><span class="p">)):</span>
+                    <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/crearusuario.html&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>Grabamos los datos en la base de datos.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>                    <span class="n">GestorUsuarios</span><span class="o">.</span><span class="n">registrarUsuario</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreUsuario&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;ciudadUsuario&#39;</span><span class="p">))</span>
+                    <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/paginaprincipal.html&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <p>Crear calificacion. Será una pagina con un desplegable con todas las empresas guardadas, otro desplegable de 1 a 10 para la nota, y
+un campo de texto para introudicr el nombre de usuario (no se manejarán sesiones).</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaCalificarEmpresa</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">usuarios</span> <span class="o">=</span> <span class="n">GestorUsuarios</span><span class="o">.</span><span class="n">obtenerUsuarios</span><span class="p">()</span>
+        <span class="n">patron</span> <span class="o">=</span> <span class="s">&#39;[a-zA-Z0-9]&#39;</span>
+        <span class="n">respuesta</span> <span class="o">=</span> <span class="s">&quot;&lt;select name=&#39;seleccion_usuario&#39;&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">codigo_usuario</span><span class="p">,</span> <span class="n">usuario</span><span class="p">)</span> <span class="ow">in</span> <span class="n">usuarios</span><span class="p">:</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;option value=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo_usuario</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">usuario</span><span class="p">)))</span> <span class="o">+</span> <span class="s">&quot;&lt;/option&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;/select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+
+        <span class="n">empresas</span> <span class="o">=</span>  <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">obtenerEmpresas</span><span class="p">()</span>
+        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;select name=&#39;seleccion_empresa&#39;&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="k">for</span> <span class="n">codigo_empresa</span><span class="p">,</span> <span class="n">empresa</span> <span class="ow">in</span> <span class="n">empresas</span><span class="p">:</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;option value=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">codigo_empresa</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">empresa</span><span class="p">)))</span> <span class="o">+</span> <span class="s">&quot;&lt;/option&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;/select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+
+        <span class="n">templateVars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;listas&quot;</span><span class="p">:</span> <span class="n">respuesta</span><span class="p">}</span>
+        <span class="n">plantilla</span> <span class="o">=</span> <span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/calificarempresa.html&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">templateVars</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_usuario&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_empresa&#39;</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_nota&#39;</span><span class="p">)</span> <span class="p">):</span>
+            <span class="n">usuarios</span> <span class="o">=</span> <span class="n">GestorUsuarios</span><span class="o">.</span><span class="n">obtenerUsuarios</span><span class="p">()</span>
+            <span class="n">patron</span> <span class="o">=</span> <span class="s">&#39;[a-zA-Z0-9]&#39;</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="s">&quot;&lt;select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+            <span class="k">for</span> <span class="n">usuario</span> <span class="ow">in</span> <span class="n">usuarios</span><span class="p">:</span>
+                <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;option value=&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">usuario</span><span class="p">)))</span> <span class="o">+</span> <span class="s">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">usuario</span><span class="p">)))</span> <span class="o">+</span> <span class="s">&quot;&lt;/option&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+                <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;/select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+
+            <span class="n">empresas</span> <span class="o">=</span>  <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">obtenerEmpresas</span><span class="p">()</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+            <span class="k">for</span> <span class="n">empresa</span> <span class="ow">in</span> <span class="n">empresas</span><span class="p">:</span>
+                <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;option value=&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">empresa</span><span class="p">)))</span>  <span class="o">+</span> <span class="s">&quot;&gt;&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">empresa</span><span class="p">)))</span> <span class="o">+</span> <span class="s">&quot;&lt;/option&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">respuesta</span> <span class="o">+</span> <span class="s">&quot;&lt;/select&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+            <span class="n">templateVars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;listas&quot;</span><span class="p">:</span> <span class="n">respuesta</span><span class="p">}</span>
+            <span class="n">plantilla</span> <span class="o">=</span> <span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/calificarempresa.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">templateVars</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p>Grabamos los datos en la base de datos.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_usuario&#39;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_nota&#39;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_empresa&#39;</span><span class="p">)</span>
+            <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">calificarEmpresa</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_usuario&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_empresa&#39;</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;seleccion_nota&#39;</span><span class="p">))</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/paginaprincipal.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <p>Borrar una calificación. Lo mismo que la de Crear calificacion, pero con solo dos desplegables.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">class</span> <span class="nc">PaginaBorrarCalificacion</span><span class="p">(</span><span class="n">webapp2</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">respuesta</span> <span class="o">=</span> <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">obtenerEmpresasCalificar</span><span class="p">()</span>
+        <span class="n">templateVars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;formBorrar&quot;</span> <span class="p">:</span> <span class="n">respuesta</span><span class="p">}</span>
+        <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/borrarEmpresa.html&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">templateVars</span><span class="p">))</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreUsuario&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreEmpresa&#39;</span><span class="p">)):</span>
+            <span class="n">respuesta</span> <span class="o">=</span> <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">obtenerEmpresasCalificar</span><span class="p">()</span>
+            <span class="n">templateVars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;formBorrar&quot;</span> <span class="p">:</span> <span class="n">respuesta</span><span class="p">}</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/borrarEmpresa.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">templateVars</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>Grabamos los datos en la base de datos.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">GestorEmpresas</span><span class="o">.</span><span class="n">borrarCalificacion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreEmpresa&#39;</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;nombreUsuario&#39;</span><span class="p">))</span>
+            <span class="n">plantilla</span><span class="o">=</span><span class="n">plantilla_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s">&#39;plantilla/paginaprincipal.html&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">plantilla</span><span class="o">.</span><span class="n">render</span><span class="p">())</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-21'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-21'>#</a>
+      </div>
+      <p>Ranking de empresa. Las empresas serán ordenadas de mayor a menor, haciendo una media de todas sus calificaciones.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-22'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-22'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">aplicacion</span><span class="p">():</span>
+    <span class="k">return</span>  <span class="n">webapp2</span><span class="o">.</span><span class="n">WSGIApplication</span><span class="p">([</span>
+                                      <span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span><span class="n">PaginaPrincipal</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s">&#39;/crearempresa&#39;</span><span class="p">,</span><span class="n">PaginaCrearEmpresa</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s">&#39;/listarempresas&#39;</span><span class="p">,</span> <span class="n">PaginaListarCalificaciones</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s">&#39;/calificarempresa&#39;</span><span class="p">,</span> <span class="n">PaginaCalificarEmpresa</span><span class="p">),</span>
+                                      <span class="p">(</span><span class="s">&#39;/crearusuario&#39;</span><span class="p">,</span><span class="n">PaginaCrearUsuario</span><span class="p">)</span>
+					<span class="p">],</span> <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
