@@ -141,13 +141,17 @@ class PaginaBorrarCalificacion(webapp2.RequestHandler):
 
 
 
-
+class PaginaPruebaVariable(webapp2.RequestHandler):
+    def get(self,parametro):
+        print "HE LLEGADO!"
+        self.response.write( 'Parametro recibido: %s' % parametro)
 aplicacion = webapp2.WSGIApplication([
                                       ('/',PaginaPrincipal),
                                       ('/crearempresa',PaginaCrearEmpresa),
                                       ('/listarempresas', PaginaListarCalificaciones),
                                       ('/calificarempresa', PaginaCalificarEmpresa),
-                                      ('/crearusuario',PaginaCrearUsuario)
+                                      ('/crearusuario',PaginaCrearUsuario),
+                                      (r'/prueba/(\w+)', PaginaPruebaVariable),
 					], debug=True)
 
 
