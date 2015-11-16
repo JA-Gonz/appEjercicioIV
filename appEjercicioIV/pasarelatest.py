@@ -139,11 +139,16 @@ class PaginaBorrarCalificacion(webapp2.RequestHandler):
 
 # Ranking de empresa. Las empresas serán ordenadas de mayor a menor, haciendo una media de todas sus calificaciones.
 
+class PaginaPruebaVariable(webapp2.RequestHandler):
+    def get(self,parametro):
+        self.response.write( 'Parametro recibido: %s' % parametro)
+
 def aplicacion():
     return  webapp2.WSGIApplication([
                                       ('/',PaginaPrincipal),
                                       ('/crearempresa',PaginaCrearEmpresa),
                                       ('/listarempresas', PaginaListarCalificaciones),
                                       ('/calificarempresa', PaginaCalificarEmpresa),
-                                      ('/crearusuario',PaginaCrearUsuario)
+                                      ('/crearusuario',PaginaCrearUsuario),
+                                      (r'/prueba/(\w+)', PaginaPruebaVariable),
 					], debug=True)
