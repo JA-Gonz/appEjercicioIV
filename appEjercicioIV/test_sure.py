@@ -63,25 +63,14 @@ class TestStringMethods():
             (response.body).should.contain('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>')
 
         def test_prueba(self):
-            # Build a request object passing the URI path to be tested.
-            # You can also pass headers, query arguments etc.
             request = webapp2.Request.blank('/prueba')
-            # Get a response for that request.
             response = request.get_response(pasarelatest.aplicacion())
 
-            # Let's check if the response is correct.
-            # self.assertEqual(response.status_int, 200)
-            #self.assertTrue('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>' in response.body)
             (response.body).should.contain('Parametro')
 
-            def test_prueba(self):
-                # Build a request object passing the URI path to be tested.
-                # You can also pass headers, query arguments etc.
-                request = webapp2.Request.blank('/prueba/valor_prueba')
-                # Get a response for that request.
-                response = request.get_response(pasarelatest.aplicacion())
+        def test_prueba(self):
 
-                # Let's check if the response is correct.
-                # self.assertEqual(response.status_int, 200)
-                #self.assertTrue('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>' in response.body)
-                (response.body).should.contain('valor_prueba')
+            request = webapp2.Request.blank('/prueba/valor_prueba')
+
+            response = request.get_response(pasarelatest.aplicacion())
+            (response.body).should.contain('valor_prueba')
