@@ -57,6 +57,16 @@ class TestStringMethods(unittest.TestCase):
             # Let's check if the response is correct.
             # self.assertEqual(response.status_int, 200)
             self.assertTrue('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>' in response.body)
+        def test_paginapruebavariable(self):
+            # Build a request object passing the URI path to be tested.
+            # You can also pass headers, query arguments etc.
+            request = webapp2.Request.blank('/')
+            # Get a response for that request.
+            response = request.get_response(pasarelatest.aplicacion())
+
+            # Let's check if the response is correct.
+            # self.assertEqual(response.status_int, 200)
+            self.assertTrue('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>' in response.body)
 
 if __name__ == '__main__':
     unittest.main()
