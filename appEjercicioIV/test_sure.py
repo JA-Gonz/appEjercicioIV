@@ -68,7 +68,7 @@ class TestStringMethods():
 
             (response.body).should.contain('Parametro')
 
-        def test_prueba(self):
+        def test_prueba_con_parametro(self):
 
             request = webapp2.Request.blank('/prueba/valor_prueba')
 
