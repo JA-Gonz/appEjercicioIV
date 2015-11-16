@@ -74,3 +74,9 @@ class TestStringMethods():
 
             response = request.get_response(pasarelatest.aplicacion())
             (response.body).should.contain('valorprueba')
+
+        def test_modificacion(self):
+            request = webapp2.Request.blank('/modificacion')
+
+            response = request.get_response(pasarelatest.aplicacion())
+            (response.body).should.contain('Modificacion para CI')

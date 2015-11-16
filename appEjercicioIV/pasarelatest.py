@@ -143,6 +143,9 @@ class PaginaPruebaVariable(webapp2.RequestHandler):
     def get(self,parametro):
         self.response.write( 'Parametro recibido: %s' % parametro)
 
+class PaginaModificacion(webapp2.RequestHandler):
+    def get(self):
+        self.response.write('Modificacion para CI')
 def aplicacion():
     return  webapp2.WSGIApplication([
                                       ('/',PaginaPrincipal),
@@ -151,4 +154,5 @@ def aplicacion():
                                       ('/calificarempresa', PaginaCalificarEmpresa),
                                       ('/crearusuario',PaginaCrearUsuario),
                                       (r'/prueba/(\w*)', PaginaPruebaVariable),
+                                      ('/modificacion',PaginaModificacion)
 					], debug=True)
