@@ -70,7 +70,7 @@ class TestStringMethods():
 
         def test_prueba_con_parametro(self):
 
-            request = webapp2.Request.blank('/prueba/valor_prueba')
+            request = webapp2.Request.blank('/prueba/valorprueba')
 
             response = request.get_response(pasarelatest.aplicacion())
-            (response.body).should.contain('valor_prueba')
+            (response.body).should.contain('valorprueba')
