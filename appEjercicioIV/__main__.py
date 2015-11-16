@@ -150,7 +150,7 @@ aplicacion = webapp2.WSGIApplication([
                                       ('/listarempresas', PaginaListarCalificaciones),
                                       ('/calificarempresa', PaginaCalificarEmpresa),
                                       ('/crearusuario',PaginaCrearUsuario),
-                                      (r'/prueba/(\w+)', PaginaPruebaVariable),
+                                      (r'/prueba/(\w*)', PaginaPruebaVariable),
 					], debug=True)
 
 

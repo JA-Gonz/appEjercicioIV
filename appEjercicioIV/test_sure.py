@@ -63,7 +63,7 @@ class TestStringMethods():
             (response.body).should.contain('<a class="uk-button-danger" href="crearempresa"> Crear Empresa </a>')
 
         def test_prueba(self):
-            request = webapp2.Request.blank('/prueba')
+            request = webapp2.Request.blank('/prueba/')
             response = request.get_response(pasarelatest.aplicacion())
 
             (response.body).should.contain('Parametro')
