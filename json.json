@@ -1,0 +1,1 @@
+{"py/object": "__main__.ObjetoJSON", "p": {"py/object": "__main__.Prueba", "vector_clase": {"py/tuple": [1, 2, 3, 4]}}, "l": {"py/object": "__main__.Libro", "nombre": "Nombre del libro", "numero_paginas": 500, "url": "www.get.com"}}
